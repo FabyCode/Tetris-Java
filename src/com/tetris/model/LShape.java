@@ -1,5 +1,7 @@
 package com.tetris.model;
 
+import javafx.scene.paint.Color;
+
 public class LShape extends Tetromino {
 
     @Override
@@ -11,5 +13,6 @@ public class LShape extends Tetromino {
             {1,0},
             {1,1}
         };
+        setColor(Color.ORANGE);
     }
 }

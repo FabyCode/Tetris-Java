@@ -1,9 +1,13 @@
-import com.tetris.game.Game;
+import com.tetris.ui.TetrisApp;
+
+import javafx.application.Application;
 
 public class Main {
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.start();
+        Application.launch(
+                TetrisApp.class,
+                args
+        );
     }
 }

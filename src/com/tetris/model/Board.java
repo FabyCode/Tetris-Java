@@ -119,7 +119,7 @@ public class Board {
 
     public int clearFullLines() {
         int clearedLines = 0;
-        
+
         for(int row = ROWS - 1; row >= 0; row--) {
             if(isLineFull(row)) {
                 removeLine(row);
@@ -130,6 +130,10 @@ public class Board {
         }
 
         return clearedLines;
+    }
+
+    public int[][] getGrid() {
+        return grid;
     }
 
     private void printGrid(int[][] temp) {

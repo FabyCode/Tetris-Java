@@ -1,9 +1,11 @@
 package com.tetris.model;
+import javafx.scene.paint.Color;
 
 public abstract class Tetromino {
 
     protected int[][] shape;
     protected Position position;
+    private Color color;
 
     public Tetromino() {
         initializeShape();
@@ -25,6 +27,14 @@ public abstract class Tetromino {
 
     public Position getPosition() {
         return position;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    protected void setColor(Color color) {
+        this.color = color;
     }
 
     public void moveLeft() {

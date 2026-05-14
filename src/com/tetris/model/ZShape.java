@@ -1,5 +1,7 @@
 package com.tetris.model;
 
+import javafx.scene.paint.Color;
+
 public class ZShape extends Tetromino {
 
     @Override
@@ -9,5 +11,7 @@ public class ZShape extends Tetromino {
             {1,1,0},
             {0,1,1}
         };
+
+        setColor(Color.RED);
     }
 }
