@@ -12,11 +12,8 @@ public class Board {
     }
 
     public void render(Tetromino piece) {
-
         int[][] temp = copyGrid();
-
         drawPiece(temp, piece);
-
         printGrid(temp);
     }
 
@@ -39,9 +36,7 @@ public class Board {
         int startCol = piece.getPosition().getCol();
 
         for (int i = 0; i < shape.length; i++) {
-
             for (int j = 0; j < shape[i].length; j++) {
-
                 if (shape[i][j] == 1) {
                     temp[startRow + i][startCol + j] = 1;
                 }

@@ -1,9 +1,5 @@
 package com.tetris.game;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 import com.tetris.model.Board;
 import com.tetris.model.Tetromino;
 import com.tetris.util.TetrominoFactory;

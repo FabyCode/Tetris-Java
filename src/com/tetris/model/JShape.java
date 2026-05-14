@@ -10,7 +10,6 @@ public class JShape extends Tetromino {
         shape = new int[][]{
             {0,1},
             {0,1},
-            {0,1},
             {1,1}
         };
         setColor(Color.BLUE);

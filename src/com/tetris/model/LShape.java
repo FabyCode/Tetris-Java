@@ -10,7 +10,6 @@ public class LShape extends Tetromino {
         shape = new int[][]{
             {1,0},
             {1,0},
-            {1,0},
             {1,1}
         };
         setColor(Color.ORANGE);
