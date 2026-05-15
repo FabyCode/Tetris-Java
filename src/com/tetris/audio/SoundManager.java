@@ -8,33 +8,26 @@ public class SoundManager {
     private MediaPlayer backgroundMusic;
 
     public void playBackgroundMusic() {
-
         try {
-
             String musicPath =
                     getClass()
                             .getClassLoader()
-                            .getResource("/resources/com/tetris/audio/theme.mp3")
+                            .getResource("resources/com/tetris/audio/theme.wav")
                             .toExternalForm();
 
-            Media music =
-                    new Media(musicPath);
+            Media music = new Media(musicPath);
 
-            backgroundMusic =
-                    new MediaPlayer(music);
+            backgroundMusic = new MediaPlayer(music);
 
             // Repetir indefinidamente
-            backgroundMusic.setCycleCount(
-                    MediaPlayer.INDEFINITE
-            );
+            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
 
             // Volumen (0.0 a 1.0)
             backgroundMusic.setVolume(0.35);
-
             backgroundMusic.play();
-
         }
         catch(Exception e) {
+            System.out.println(getClass().getResource("/"));
 
             System.out.println(
                     "Error cargando música: "
