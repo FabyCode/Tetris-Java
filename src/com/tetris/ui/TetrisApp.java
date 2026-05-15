@@ -3,41 +3,28 @@ package com.tetris.ui;
 import com.tetris.game.Game;
 
 import javafx.animation.KeyFrame;
+import com.tetris.audio.SoundManager;
 import javafx.animation.Timeline;
-
 import javafx.application.Application;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
 import javafx.scene.Scene;
-
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.*;
-
-import javafx.scene.paint.Color;
-
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
 import javafx.stage.Stage;
-
 import javafx.util.Duration;
 
 public class TetrisApp extends Application {
-
     private static final int CELL_SIZE = 35;
-
     private static final int BOARD_COLS = 10;
-
     private static final int BOARD_ROWS = 20;
 
     @Override
     public void start(Stage stage) {
 
         Game game = new Game();
+        SoundManager soundManager = new SoundManager();
 
         GameRenderer renderer = new GameRenderer();
         PreviewRenderer previewRenderer = new PreviewRenderer();
@@ -114,6 +101,7 @@ public class TetrisApp extends Application {
                 event -> {
 
                     if (game.isGameOver()) {
+                        soundManager.stopBackgroundMusic();
                         return;
                     }
 
@@ -156,12 +144,9 @@ public class TetrisApp extends Application {
                         e -> {
 
                             if (game.isGameOver()) {
-
-                                gameOverText.setText(
-                                        "GAME OVER");
-
-                                gameOverText.setVisible(
-                                        true);
+                                gameOverText.setText("GAME OVER");
+                                gameOverText.setVisible(true);
+                                soundManager.stopBackgroundMusic();
 
                                 return;
                             }
@@ -189,6 +174,7 @@ public class TetrisApp extends Application {
                 scene);
 
         stage.show();
+        soundManager.playBackgroundMusic();
     }
 
     private void updateHud(
