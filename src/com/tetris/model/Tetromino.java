@@ -68,4 +68,9 @@ public abstract class Tetromino {
 
         return rotated;
     }
+
+    public void reset() {
+        initializeShape();
+        position = new Position(0, 3);
+    }
 }

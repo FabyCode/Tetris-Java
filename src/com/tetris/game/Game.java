@@ -8,8 +8,11 @@ public class Game {
 
     private Board board;
     private Tetromino currentPiece;
-    //private Scanner scanner;
-    //private Map<Character, Runnable> controls;
+    private Tetromino nextPiece;
+    private Tetromino heldPiece;
+    private boolean canHold;
+    // private Scanner scanner;
+    // private Map<Character, Runnable> controls;
 
     private ScoreManager scoreManager;
     private GameState state;
@@ -17,22 +20,27 @@ public class Game {
     public Game() {
         board = new Board();
         currentPiece = TetrominoFactory.createRandom();
-        //scanner = new Scanner(System.in);
-        //controls = new HashMap<>();
+        nextPiece = TetrominoFactory.createRandom();
+        // scanner = new Scanner(System.in);
+        // controls = new HashMap<>();
+        heldPiece = null;
+        canHold = true;
         scoreManager = new ScoreManager();
         state = GameState.PLAYING;
 
-        //initializeControls();
+        // initializeControls();
     }
 
-    /*private void initializeControls() {
-        controls.put('a', () -> moveLeft());
-        controls.put('d', () -> moveRight());
-        controls.put('s', () -> moveDown());
-        controls.put('w', () -> rotatePiece());
-
-        controls.put('q', () -> state = GameState.GAME_OVER);
-    }*/
+    /*
+     * private void initializeControls() {
+     * controls.put('a', () -> moveLeft());
+     * controls.put('d', () -> moveRight());
+     * controls.put('s', () -> moveDown());
+     * controls.put('w', () -> rotatePiece());
+     * 
+     * controls.put('q', () -> state = GameState.GAME_OVER);
+     * }
+     */
 
     public void moveLeft() {
         int newCol = currentPiece.getPosition().getCol() - 1;
@@ -118,14 +126,13 @@ public class Game {
              * System.out.println("A=Izq D=Der S=Abajo W=Rotar Q=Salir");
              */
 
-            
             System.out.println();
             System.out.println("Score: " + scoreManager.getScore());
             System.out.println("Lines: " + scoreManager.getTotalLines());
             System.out.println("Level: " + scoreManager.getLevel());
 
-            //char input = scanner.next().toLowerCase().charAt(0);
-            //executeInput(input);
+            // char input = scanner.next().toLowerCase().charAt(0);
+            // executeInput(input);
         }
 
         System.out.println();
@@ -133,26 +140,50 @@ public class Game {
     }
 
     private void spawnNewPiece() {
-        currentPiece = TetrominoFactory.createRandom();
-        int row = currentPiece.getPosition().getRow();
-        int col = currentPiece.getPosition().getCol();
+        currentPiece = nextPiece;
+        currentPiece.reset();
+        
+        nextPiece = TetrominoFactory.createRandom();
+        canHold = true;
+
         if (!board.canMove(
                 currentPiece,
-                row,
-                col)) {
+                currentPiece.getPosition().getRow(),
+                currentPiece.getPosition().getCol())) {
 
             state = GameState.GAME_OVER;
         }
     }
 
-    /*private void executeInput(char input) {
-
-        Runnable action = controls.get(input);
-
-        if (action != null) {
-            action.run();
+    public void holdPiece() {
+        if (!canHold) {
+            return;
         }
-    }*/
+        canHold = false;
+
+        if (heldPiece == null) {
+            heldPiece = currentPiece;
+            currentPiece = nextPiece;
+            currentPiece.reset();
+            nextPiece = TetrominoFactory.createRandom();
+        } else {
+            Tetromino temp = currentPiece;
+            currentPiece = heldPiece;
+            heldPiece = temp;
+            currentPiece.reset();
+        }
+    }
+
+    /*
+     * private void executeInput(char input) {
+     * 
+     * Runnable action = controls.get(input);
+     * 
+     * if (action != null) {
+     * action.run();
+     * }
+     * }
+     */
 
     public boolean isGameOver() {
         return state == GameState.GAME_OVER;
@@ -180,5 +211,21 @@ public class Game {
     public int getDropSpeed() {
         int speed = 900 - (getLevel() - 1) * 100;
         return Math.max(speed, 150);
+    }
+
+    public int getScore() {
+        return scoreManager.getScore();
+    }
+
+    public int getLines() {
+        return scoreManager.getTotalLines();
+    }
+
+    public Tetromino getNextPiece() {
+        return nextPiece;
+    }
+
+    public Tetromino getHeldPiece() {
+        return heldPiece;
     }
 }
